@@ -16,7 +16,7 @@
 <body>
     <div class="auth-card p-4 p-sm-5">
         <h4 class="fw-bold text-center mb-1"><i class="bi bi-person-plus-fill text-success me-2"></i>Tạo Tài Khoản</h4>
-        <p class="text-muted text-center small mb-4">Đăng ký tài khoản truy cập hệ thống</p>
+        <p class="text-muted text-center small mb-4">Đăng ký tài khoản nhận mã OTP kích hoạt</p>
 
         <c:if test="${not empty alert}">
             <div class="alert alert-danger py-2 text-center small">${alert}</div>
@@ -25,15 +25,15 @@
         <form action="<c:url value='/register'/>" method="post">
             <div class="mb-3">
                 <label class="form-label fw-semibold">Họ và tên</label>
-                <input type="text" name="fullname" class="form-control" placeholder="Nguyễn Văn A" required>
+                <input type="text" name="fullname" value="${param.fullname}" class="form-control" placeholder="Nguyễn Văn A" required>
             </div>
             <div class="mb-3">
-                <label class="form-label fw-semibold">Email</label>
-                <input type="email" name="email" class="form-control" placeholder="example@gmail.com" required>
+                <label class="form-label fw-semibold">Email nhận OTP</label>
+                <input type="email" name="email" value="${param.email}" class="form-control" placeholder="example@gmail.com" required>
             </div>
             <div class="mb-3">
                 <label class="form-label fw-semibold">Tên đăng nhập</label>
-                <input type="text" name="username" class="form-control" placeholder="Nhập username" required>
+                <input type="text" name="username" value="${param.username}" class="form-control" placeholder="Nhập username" required>
             </div>
             <div class="mb-3">
                 <label class="form-label fw-semibold">Mật khẩu</label>

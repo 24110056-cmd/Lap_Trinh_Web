@@ -6,31 +6,33 @@ import vn.iotstar.entity.Category;
 import vn.iotstar.entity.Video;
 
 public class Test {
-	public static void main(String[] args) {
-		EntityManager enma = JpaConfig.getEntityManager();
-		EntityTransaction trans = enma.getTransaction();
+    public static void main(String[] args) {
+        EntityManager enma = JpaConfig.getEntityManager();
+        EntityTransaction trans = enma.getTransaction();
 
-		Category cate = new Category();
-		cate.setCategoryname("Iphone");
-		cate.setImages("abc.jpg");
-		cate.setStatus(1);
+        Category cate = new Category();
+        cate.setCategoryname("Iphone");
+        cate.setImages("abc.jpg");
+        cate.setStatus(1);
 
-		Video video = new Video();
-		video.setVideoId("v01");
-		video.setTitle("Test Video");
-		video.setCategory(cate);
+        Video video = new Video();
+        video.setVideoId("v01");
+        video.setTitle("Test Video");
+        video.setCategory(cate);
 
-		try {
-			trans.begin();
-			enma.persist(cate);
-			enma.persist(video);
-			trans.commit();
-			System.out.println("Thành công! Đã tạo bảng và thêm dữ liệu mẫu.");
-		} catch (Exception e) {
-			e.printStackTrace();
-			trans.rollback();
-		} finally {
-			enma.close();
-		}
-	}
+        try {
+            trans.begin();
+            enma.persist(cate);
+            enma.persist(video);
+            trans.commit();
+            System.out.println("Thành công! Đã tạo bảng và thêm dữ liệu mẫu.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (trans.isActive()) {
+                trans.rollback();
+            }
+        } finally {
+            enma.close();
+        }
+    }
 }

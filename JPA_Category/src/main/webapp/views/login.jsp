@@ -16,11 +16,14 @@
 <body>
     <div class="auth-card p-4 p-sm-5">
         <h4 class="fw-bold text-center mb-1"><i class="bi bi-shield-lock-fill text-primary me-2"></i>Đăng Nhập</h4>
-        <p class="text-muted text-center small mb-4">Quản trị hệ thống danh mục JPA</p>
+        <p class="text-muted text-center small mb-4">Hệ thống Quản lý Video & Đăng nhập OTP</p>
 
+        <!-- Hiển thị thông báo lỗi (khớp với biến ${alert} trong Controller) -->
         <c:if test="${not empty alert}">
             <div class="alert alert-danger py-2 text-center small">${alert}</div>
         </c:if>
+        
+        <!-- Hiển thị thông báo thành công (ví dụ: sau khi đăng ký hoặc kích hoạt OTP thành công) -->
         <c:if test="${not empty success}">
             <div class="alert alert-success py-2 text-center small">${success}</div>
         </c:if>
@@ -28,12 +31,17 @@
         <form action="<c:url value='/login'/>" method="post">
             <div class="mb-3">
                 <label class="form-label fw-semibold">Tên đăng nhập</label>
-                <input type="text" name="username" class="form-control" placeholder="Nhập username (mặc định: admin)" required>
+                <input type="text" name="username" class="form-control" placeholder="Nhập username của bạn" required>
             </div>
-            <div class="mb-4">
+            <div class="mb-3">
                 <label class="form-label fw-semibold">Mật khẩu</label>
-                <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu (mặc định: 123)" required>
+                <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required>
             </div>
+            
+            <div class="d-flex justify-content-between align-items-center mb-4 small">
+                <a href="<c:url value='/forgot'/>" class="text-decoration-none">Quên mật khẩu?</a>
+            </div>
+
             <button type="submit" class="btn btn-primary w-100 fw-semibold py-2 mb-3">Đăng nhập</button>
         </form>
 

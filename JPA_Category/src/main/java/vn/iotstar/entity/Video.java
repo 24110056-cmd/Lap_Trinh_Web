@@ -1,93 +1,64 @@
 package vn.iotstar.entity;
 
-import java.io.Serializable;
 import jakarta.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "videos")
-@NamedQuery(name = "Video.findAll", query = "SELECT v FROM Video v")
+@Table(name = "Videos")
 public class Video implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name = "VideoId")
-	private String videoId;
+    @Id
+    @Column(name = "VideoId")
+    private String videoId;
 
-	@Column(name = "Active")
-	private boolean active;
+    @Column(name = "Title", columnDefinition = "NVARCHAR(255)")
+    private String title;
 
-	@Column(name = "Description", columnDefinition = "NVARCHAR(MAX) NULL")
-	private String description;
+    @Column(name = "Poster")
+    private String poster;
 
-	@Column(name = "Poster", columnDefinition = "NVARCHAR(255) NULL")
-	private String poster;
+    @Column(name = "Views")
+    private int views;
 
-	@Column(name = "Title", columnDefinition = "NVARCHAR(255) NULL")
-	private String title;
+    @Column(name = "Description", columnDefinition = "NVARCHAR(MAX)")
+    private String description;
 
-	@Column(name = "Views")
-	private int views;
+    @Column(name = "Active")
+    private boolean active;
 
-	@ManyToOne
-	@JoinColumn(name = "CategoryId")
-	private Category category;
+    // Quan hệ với Category
+    @ManyToOne
+    @JoinColumn(name = "CategoryId")
+    private Category category;
 
-	public Video() {
-	}
+    // QUAN TRỌNG: Phải có thuộc tính 'user' này để khớp với mappedBy = "user" bên entity User
+    @ManyToOne
+    @JoinColumn(name = "UserId")
+    private User user;
 
-	public String getVideoId() {
-		return videoId;
-	}
+    // --- Getters and Setters ---
+    public String getVideoId() { return videoId; }
+    public void setVideoId(String videoId) { this.videoId = videoId; }
 
-	public void setVideoId(String videoId) {
-		this.videoId = videoId;
-	}
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-	public boolean isActive() {
-		return active;
-	}
+    public String getPoster() { return poster; }
+    public void setPoster(String poster) { this.poster = poster; }
 
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+    public int getViews() { return views; }
+    public void setViews(int views) { this.views = views; }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 
-	public String getPoster() {
-		return poster;
-	}
+    public Category getCategory() { return category; }
+    public void setCategory(Category category) { this.category = category; }
 
-	public void setPoster(String poster) {
-		this.poster = poster;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public int getViews() {
-		return views;
-	}
-
-	public void setViews(int views) {
-		this.views = views;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 }

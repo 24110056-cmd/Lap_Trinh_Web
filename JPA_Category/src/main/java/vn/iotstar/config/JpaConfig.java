@@ -1,3 +1,4 @@
+
 package vn.iotstar.config;
 
 import jakarta.persistence.EntityManager;
@@ -5,8 +6,17 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 public class JpaConfig {
-	public static EntityManager getEntityManager() {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-hibernate-sqlserver");
-		return factory.createEntityManager();
-	}
+
+    private static final EntityManagerFactory FACTORY =
+            Persistence.createEntityManagerFactory("jpa-hibernate-sqlserver");
+
+    public static EntityManager getEntityManager() {
+        return FACTORY.createEntityManager();
+    }
+
+    public static void close() {
+        if (FACTORY != null && FACTORY.isOpen()) {
+            FACTORY.close();
+        }
+    }
 }
