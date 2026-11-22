@@ -1,0 +1,77 @@
+package vn.iotstar.entity;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+@Entity
+@Table(name = "categories")
+@NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
+public class Category implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "CategoryId")
+	private int categoryId;
+
+	@NotBlank(message = "Tên danh mục không được để trống!")
+	@Size(min = 3, max = 255, message = "Tên danh mục phải từ 3 đến 255 ký tự!")
+	@Column(name = "CategoryName", columnDefinition = "NVARCHAR(255) NOT NULL")
+	private String categoryname;
+
+	@Column(name = "Images", columnDefinition = "NVARCHAR(500) NULL")
+	private String images;
+
+	@Column(name = "Status")
+	private int status;
+
+	@OneToMany(mappedBy = "category")
+	private List<Video> videos = new ArrayList<>();
+
+	public Category() {
+	}
+
+	public int getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public String getCategoryname() {
+		return categoryname;
+	}
+
+	public void setCategoryname(String categoryname) {
+		this.categoryname = categoryname;
+	}
+
+	public String getImages() {
+		return images;
+	}
+
+	public void setImages(String images) {
+		this.images = images;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public List<Video> getVideos() {
+		return videos;
+	}
+
+	public void setVideos(List<Video> videos) {
+		this.videos = videos;
+	}
+}
